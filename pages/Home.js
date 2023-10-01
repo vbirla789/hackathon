@@ -35,27 +35,34 @@ let LocationOfInterest = [
 
 export default function Home({ navigation }) {
   const [location, setLocation] = useState("");
+  const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
-    const getPermissions = async () => {
+    (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        console.log("Please grant location permissions");
+        setErrorMsg("Permission to access location was denied");
         return;
       }
 
-      let currentLocation = await Location.getCurrentPositionAsync({});
-      setLocation(currentLocation);
-      // console.log("Location:");
-      // console.log(currentLocation);
-    };
-    getPermissions();
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
   }, []);
 
+  let text = "Waiting..";
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = JSON.stringify(location);
+  }
+
   useEffect(() => {
-    console.log(location);
-    console.log(location.coords);
-    // console.log(location.coords.longitude);
+    if (location && location.coords) {
+      console.log(location);
+      console.log(location.coords.latitude);
+      console.log(location.coords.longitude);
+    }
   }, [location]);
 
   const showLocInt = () => {

@@ -37,10 +37,6 @@ const ReportForm = () => {
       console.log("Selected Event:", selectedEvent);
       console.log("Description:", description);
 
-      // Simulate a successful report submission
-      // Replace this with your actual logic to submit the report
-      await submitReport(); // You can define the submitReport function
-
       // Display a push notification for successful submission
       const notificationContent = {
         title: "Report Submitted",

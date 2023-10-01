@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -15,6 +15,10 @@ const Form = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [id, setId] = useState("");
+  const [user, setUser] = useState({
+    fullname: "",
+    location: "",
+  });
 
   const handleUserButtonClick = () => {
     setFormType("user");
@@ -32,7 +36,7 @@ const Form = ({ navigation }) => {
 
       // Make the API call
       try {
-        const response = await fetch("http://172.20.10.4/auth/login", {
+        const response = await fetch("http://10.52.74.59/auth/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -46,7 +50,9 @@ const Form = ({ navigation }) => {
         const responseStatus = response.status;
         const data = await response.json();
         console.log(data);
+        setUser((fullname = data.fullname));
         console.log(responseStatus);
+
         if (responseStatus == 200) {
           navigation.navigate("Home");
         }
@@ -79,6 +85,7 @@ const Form = ({ navigation }) => {
     }
   };
 
+  console.log(user);
   return (
     <View style={styles.container}>
       <View>
