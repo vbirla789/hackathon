@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  Alert,
 } from "react-native";
 import ModalDropdown from "react-native-modal-dropdown";
 import { Ionicons } from "@expo/vector-icons"; // You can use your preferred icons
@@ -37,19 +38,9 @@ const ReportForm = () => {
       console.log("Selected Event:", selectedEvent);
       console.log("Description:", description);
 
-      // Display a push notification for successful submission
-      const notificationContent = {
-        title: "Report Submitted",
-        body: "Your report has been submitted successfully.",
-      };
-
-      // Schedule the notification
-      await Notifications.scheduleNotificationAsync({
-        content: notificationContent,
-        trigger: null, // Show immediately
-      });
-
-      // You can add your logic to submit the report to a server or perform other actions here
+      Alert.alert(
+        "Your report has been submitted, Authorities have been notified"
+      );
     } catch (error) {
       console.error("Error submitting report:", error);
     }
@@ -64,7 +55,7 @@ const ReportForm = () => {
       <View style={styles.formGroup}>
         <Text style={styles.label}>Your Location:</Text>
         <TextInput
-          placeholder="Enter your location"
+          placeholder="Dahmi Kalan Rajasthan 303007"
           style={styles.input}
           value={location}
           onChangeText={handleLocationChange}

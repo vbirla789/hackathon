@@ -24,6 +24,7 @@ let LocationOfInterest = [
   //   desc: "",
   // },
   {
+    id: 1,
     title: "Second",
     location: {
       latitude: 19.089744682875306,
@@ -37,33 +38,59 @@ export default function Home({ navigation }) {
   const [location, setLocation] = useState("");
   const [errorMsg, setErrorMsg] = useState(null);
 
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
+  // useEffect(() => {
+  //   (async () => {
+  //     let { status } = await Location.requestForegroundPermissionsAsync();
+  //     if (status !== "granted") {
+  //       setErrorMsg("Permission to access location was denied");
+  //       return;
+  //     }
 
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-    })();
-  }, []);
+  //     let location = await Location.getCurrentPositionAsync({});
+  //     setLocation(location);
+  //   })();
+  // }, []);
 
-  let text = "Waiting..";
-  if (errorMsg) {
-    text = errorMsg;
-  } else if (location) {
-    text = JSON.stringify(location);
-  }
+  // let text = "Waiting..";
+  // if (errorMsg) {
+  //   text = errorMsg;
+  // } else if (location) {
+  //   text = JSON.stringify(location);
+  // }
 
-  useEffect(() => {
-    if (location && location.coords) {
-      console.log(location);
-      console.log(location.coords.latitude);
-      console.log(location.coords.longitude);
-    }
-  }, [location]);
+  // useEffect(() => {
+  //   if (location && location.coords) {
+  //     console.log(location);
+  //     console.log(location.coords.latitude);
+  //     console.log(location.coords.longitude);
+  //   }
+  // }, [location]);
+
+  // useEffect(async () => {
+  //   try {
+  //     const payload = {
+  //       email: "email",
+  //       location: {
+  //         type: "Point",
+  //         coordinates: [location.coords.latitude, location.coords.longitude],
+  //       },
+  //     };
+  //     const response = await fetch("http://10.52.74.59/user/update_location", {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(payload),
+  //     });
+
+  //     const responseStatus = response.status;
+  //     const data = await response.json();
+  //     console.log(data);
+  //     console.log(responseStatus);
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // });
 
   const showLocInt = () => {
     return LocationOfInterest.map((item, index) => {
@@ -76,15 +103,17 @@ export default function Home({ navigation }) {
             description={item.desc}
             pinColor="yellow"
           />
-          <Circle center={item.location} radius={1000} fillColor="red" />
+          <Circle
+            center={item.location}
+            radius={1000}
+            fillColor="red"
+            key={item.index}
+          />
         </View>
       );
     });
   };
 
-  const handlePress = () => {
-    Alert.alert("Button Pressed!");
-  };
   return (
     <SafeAreaView style={styles.container}>
       {/* <View style={styles.head}>
@@ -168,7 +197,7 @@ export default function Home({ navigation }) {
             justifyContent: "center",
           }}
         >
-          <Text style={{ color: "black" }}>Community</Text>
+          <Text style={{ color: "black" }}>Updates</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
@@ -202,7 +231,7 @@ export default function Home({ navigation }) {
             justifyContent: "center",
           }}
         >
-          <Text style={{ color: "black" }}>Fund</Text>
+          <Text style={{ color: "black" }}>Donate</Text>
         </TouchableOpacity>
       </View>
 

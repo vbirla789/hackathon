@@ -15,7 +15,7 @@ const DonateForm = () => {
   const [selectedEvent, setSelectedEvent] = useState(null); // Default event selection
   const [donationAmount, setDonationAmount] = useState("");
 
-  const events = ["Event 1", "Event 2", "Event 3", "Event 4"]; // Add more events as needed
+  const events = ["Earthquake"]; // Add more events as needed
 
   const handleUsernameChange = (text) => {
     setUsername(text);

@@ -52,10 +52,6 @@ const Form = ({ navigation }) => {
         console.log(data);
         setUser((fullname = data.fullname));
         console.log(responseStatus);
-
-        if (responseStatus == 200) {
-          navigation.navigate("Home");
-        }
       } catch (error) {
         console.error("Error:", error);
       }
@@ -85,22 +81,13 @@ const Form = ({ navigation }) => {
     }
   };
 
-  console.log(user);
+  // console.log(user);
   return (
     <View style={styles.container}>
       <View>
         <Text style={styles.head}>SMART CRISIS RESPONSE</Text>
       </View>
       <View style={styles.buttonsContainer}>
-        {/* <View>
-          <Button
-            title="Home"
-            onPress={() => {
-              navigation.navigate("Home");
-            }}
-          />
-        </View> */}
-
         <TouchableOpacity
           style={[styles.button, formType === "user" && styles.activeButton]}
           onPress={handleUserButtonClick}
@@ -173,9 +160,25 @@ const Form = ({ navigation }) => {
             marginVertical: 20,
           }}
         >
-          <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-            <Text style={styles.submitButtonText}>Submit</Text>
-          </TouchableOpacity>
+          {formType === "user" ? (
+            <TouchableOpacity
+              style={styles.submitButton}
+              onPress={() => {
+                navigation.navigate("Home");
+              }}
+            >
+              <Text style={styles.submitButtonText}>Submit</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={styles.submitButton}
+              onPress={() => {
+                navigation.navigate("Admin");
+              }}
+            >
+              <Text style={styles.submitButtonText}>Submit</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </View>

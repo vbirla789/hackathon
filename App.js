@@ -17,6 +17,7 @@ import Login from "./pages/Login";
 import AnnouncementPage from "./pages/AnnouncementPage";
 import ReportForm from "./pages/ReportForm";
 import DonateForm from "./pages/DonateForm";
+import Admin from "./pages/Admin";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Admin" component={Admin} />
         <Stack.Screen name="Announcement" component={AnnouncementPage} />
         <Stack.Screen name="Report" component={ReportForm} />
         <Stack.Screen name="Donate" component={DonateForm} />
